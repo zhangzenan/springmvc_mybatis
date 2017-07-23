@@ -28,5 +28,17 @@ public class ItemsServiceImpl implements ItemsService {
 		return itemsMapperCustom.findItemsList(itemsQueryVo);
 	}
 
+	@Override
+	public ItemsCustom findItemsById(int id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void UpdateItems(int id, ItemsCustom itemsCustom) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
  

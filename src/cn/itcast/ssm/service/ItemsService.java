@@ -24,6 +24,32 @@ public interface ItemsService {
 	*/
 	public List<ItemsCustom> findItemsList(ItemsQueryVo itemsQueryVo) throws Exception;
 	
+	
+	/** 
+	* @Title: findItemsById 
+	* @Description: 根据id查询商品信息 
+	* @param @param id
+	* @param @return
+	* @param @throws Exception    设定文件 
+	* @return ItemsCustom    返回类型 
+	* @throws 
+	*/
+	public ItemsCustom findItemsById(int id) throws Exception;
+	
+	
+	/** 
+	* @Title: UpdateItems 
+	* @Description: 修改商品信息
+	* @param @param id
+	* @param @param itemsCustom
+	* @param @throws Exception    设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	public void UpdateItems(int id,ItemsCustom itemsCustom) throws Exception;
+	
+	
+	
 
 }
  
