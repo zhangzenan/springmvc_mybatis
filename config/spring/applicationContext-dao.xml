@@ -29,7 +29,7 @@
 		<!-- 数据库连接池 -->
 		<property name="dataSource" ref="dataSource" />
 		<!-- 加载mybatis的配置文件 -->
-		<property name="configLocation" value="mybatis/sqlMapConfig.xml" />		
+		<property name="configLocation" value="classpath:mybatis/sqlMapConfig.xml" />		
 	</bean>
 	
 	<!-- mapper扫描器 -->

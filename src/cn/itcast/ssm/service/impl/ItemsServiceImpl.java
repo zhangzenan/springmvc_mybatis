@@ -15,6 +15,7 @@ import cn.itcast.ssm.service.ItemsService;
  * @author A18ccms a18ccms_gmail_com 
  * @date 2017-7-22 обнГ10:44:25 
  */
+
 public class ItemsServiceImpl implements ItemsService {
 	
 	@Autowired
