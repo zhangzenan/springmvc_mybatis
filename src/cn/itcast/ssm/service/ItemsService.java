@@ -34,7 +34,7 @@ public interface ItemsService {
 	* @return ItemsCustom    返回类型 
 	* @throws 
 	*/
-	public ItemsCustom findItemsById(int id) throws Exception;
+	public ItemsCustom findItemsById(Integer id) throws Exception;
 	
 	
 	/** 
@@ -46,7 +46,7 @@ public interface ItemsService {
 	* @return void    返回类型 
 	* @throws 
 	*/
-	public void UpdateItems(int id,ItemsCustom itemsCustom) throws Exception;
+	public void UpdateItems(Integer id,ItemsCustom itemsCustom) throws Exception;
 	
 	
 	

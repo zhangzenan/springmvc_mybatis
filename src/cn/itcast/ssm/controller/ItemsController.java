@@ -2,9 +2,14 @@ package cn.itcast.ssm.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.itcast.ssm.po.ItemsCustom;
@@ -18,6 +23,9 @@ import cn.itcast.ssm.service.ItemsService;
  */
 
 @Controller
+//为了对url进行分类管理，可以在这里定义根路径，最终访问的url是根路径+子路径
+//比如：商品列表：/items
+@RequestMapping("/items")
 public class ItemsController {
 
 	@Autowired
@@ -27,9 +35,13 @@ public class ItemsController {
 	// @RequestMapping实现对queryItems方法和url进行映射，一个方法对应一个url
 	// 一般建议将url和方法写成一样
 	@RequestMapping("/queryItems")
-	public ModelAndView queryItems() throws Exception {
+	public ModelAndView queryItems(HttpServletRequest request) throws Exception {
 
-		List<ItemsCustom> itemsList = itemsService.findItemsList(null);	
+		//测试forward后request是否可以共享
+		
+		System.out.println(request.getParameter("id"));
+		
+		List<ItemsCustom> itemsList = itemsService.findItemsList(null);
 
 		// 返回ModelAndView
 		ModelAndView modelAndView = new ModelAndView();
@@ -42,6 +54,78 @@ public class ItemsController {
 		modelAndView.setViewName("items/itemsList");
 
 		return modelAndView;
+	}
+
+	/**
+	 * @Title: editItems
+	 * @Description: 商品信息修改页面显示
+	 * @param @return
+	 * @param @throws Exception 设定文件
+	 * @return ModelAndView 返回类型
+	 * @throws
+	 */
+	//@RequestMapping("/editItems")
+	//限制http请求方法，可以post和get	
+/*	@RequestMapping(value="/editItems",method={RequestMethod.POST,RequestMethod.GET})
+	public ModelAndView editItems() throws Exception {
+
+		// 调用service根据商品id查询商品信息
+		ItemsCustom itemsCustom = itemsService.findItemsById(1);
+
+		// 返回ModelAndView
+		ModelAndView modelAndView = new ModelAndView();
+
+		// 将商品信息放到model
+		modelAndView.addObject("itemsCustom", itemsCustom);
+
+		// 商品修改页面
+		modelAndView.setViewName("items/editItems");
+
+		return modelAndView;
+	}*/
+	
+	//返回String
+	@RequestMapping(value="/editItems",method={RequestMethod.POST,RequestMethod.GET})
+	public String editItems(Model model) throws Exception {
+
+		// 调用service根据商品id查询商品信息
+		ItemsCustom itemsCustom = itemsService.findItemsById(1);
+	
+		//通过形参中的model将model数据传到页面
+		//相当于modelAndView.addObject方法
+		model.addAttribute("itemsCustom",itemsCustom);
+
+		return "items/editItems";
+	}
+
+	/**
+	 * @Title: editItemsSubmit
+	 * @Description: 商品信息修改提交
+	 * @param @return
+	 * @param @throws Exception 设定文件
+	 * @return ModelAndView 返回类型
+	 * @throws
+	 */
+	@RequestMapping("/editItemsSubmit")
+	public String editItemsSubmit(HttpServletRequest request) throws Exception {
+
+		
+		//重定向到商品查询列表
+		//return "redirect:queryItems.action";
+		
+		//页面转发
+		return "forward:queryItems.action";
+
+	}
+	
+	//返回json格式数据
+	@RequestMapping("/getItemsJson")
+	public void getItemsJson(HttpServletResponse response) throws Exception {
+		
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("application/json;charse=utf-8");
+		response.getWriter().write("{name:zhangsan}");
+
 	}
 
 }

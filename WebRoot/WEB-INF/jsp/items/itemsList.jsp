@@ -29,7 +29,7 @@
 				<td>${item.price }</td>			
 				<td>${item.detail }</td>
 				<td>
-					<a href="${pageContext.request.contextPath}/item/editItem.action?id=${item.id}">修改</a>
+					<a href="${pageContext.request.contextPath}/items/editItems.action?id=${item.id}">修改</a>
 				</td>
 			</tr>
 		</c:forEach>
