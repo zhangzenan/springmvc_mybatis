@@ -6,6 +6,7 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="detail" jdbcType="VARCHAR" property="detail" />
     <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, detail, price
+    id, name, detail, price, createtime
   </sql>
   <select id="selectByExample" parameterType="cn.itcast.ssm.po.ItemsExample" resultMap="BaseResultMap">
     select
@@ -100,9 +101,9 @@
   </delete>
   <insert id="insert" parameterType="cn.itcast.ssm.po.Items">
     insert into items (id, name, detail, 
-      price)
+      price, createtime)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, 
-      #{price,jdbcType=DECIMAL})
+      #{price,jdbcType=DECIMAL}, #{createtime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="cn.itcast.ssm.po.Items">
     insert into items
@@ -119,6 +120,9 @@
       <if test="price != null">
         price,
       </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -132,6 +136,9 @@
       </if>
       <if test="price != null">
         #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -156,6 +163,9 @@
       <if test="record.price != null">
         price = #{record.price,jdbcType=DECIMAL},
       </if>
+      <if test="record.createtime != null">
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -166,7 +176,8 @@
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       detail = #{record.detail,jdbcType=VARCHAR},
-      price = #{record.price,jdbcType=DECIMAL}
+      price = #{record.price,jdbcType=DECIMAL},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,6 +194,9 @@
       <if test="price != null">
         price = #{price,jdbcType=DECIMAL},
       </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -190,7 +204,8 @@
     update items
     set name = #{name,jdbcType=VARCHAR},
       detail = #{detail,jdbcType=VARCHAR},
-      price = #{price,jdbcType=DECIMAL}
+      price = #{price,jdbcType=DECIMAL},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -1,6 +1,7 @@
 package cn.itcast.ssm.po;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class Items {
     private Integer id;
@@ -10,12 +11,22 @@ public class Items {
     private String detail;
 
     private BigDecimal price;
+    
+    private Date createtime;
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public Date getCreatetime() {
+		return createtime;
+	}
+
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
+
+	public void setId(Integer id) {
         this.id = id;
     }
 

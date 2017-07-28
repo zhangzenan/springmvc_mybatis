@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.itcast.ssm.po.ItemsCustom;
@@ -86,10 +87,14 @@ public class ItemsController {
 	
 	//返回String
 	@RequestMapping(value="/editItems",method={RequestMethod.POST,RequestMethod.GET})
-	public String editItems(Model model) throws Exception {
+	//如果不使用@RequestParam，request传入的参数名称必须和形参的参数名称一致
+	//@RequestParam里边指定request传入参数和形参进行绑定
+	//通过required属性指定参数是否必须要传入
+	//通过defaultValue可以设置默认值，如果id参数没有传入，将默认值和形参绑定
+	public String editItems(Model model,@RequestParam(value="id",required=true,defaultValue="1") Integer items_id) throws Exception {
 
 		// 调用service根据商品id查询商品信息
-		ItemsCustom itemsCustom = itemsService.findItemsById(1);
+		ItemsCustom itemsCustom = itemsService.findItemsById(items_id);
 	
 		//通过形参中的model将model数据传到页面
 		//相当于modelAndView.addObject方法
@@ -107,8 +112,10 @@ public class ItemsController {
 	 * @throws
 	 */
 	@RequestMapping("/editItemsSubmit")
-	public String editItemsSubmit(HttpServletRequest request) throws Exception {
+	public String editItemsSubmit(HttpServletRequest request,Integer id,ItemsCustom itemsCustom) throws Exception {
 
+		//调用service更新商品信息，页面需要将商品你信息传到此方法
+		itemsService.UpdateItems(id, itemsCustom);
 		
 		//重定向到商品查询列表
 		//return "redirect:queryItems.action";
