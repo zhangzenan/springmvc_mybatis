@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.itcast.ssm.po.ItemsCustom;
+import cn.itcast.ssm.po.ItemsQueryVo;
 import cn.itcast.ssm.service.ItemsService;
 
 /**
@@ -36,13 +37,13 @@ public class ItemsController {
 	// @RequestMapping实现对queryItems方法和url进行映射，一个方法对应一个url
 	// 一般建议将url和方法写成一样
 	@RequestMapping("/queryItems")
-	public ModelAndView queryItems(HttpServletRequest request) throws Exception {
+	public ModelAndView queryItems(HttpServletRequest request,ItemsQueryVo itemsQueryVo) throws Exception {
 
 		//测试forward后request是否可以共享
 		
 		System.out.println(request.getParameter("id"));
 		
-		List<ItemsCustom> itemsList = itemsService.findItemsList(null);
+		List<ItemsCustom> itemsList = itemsService.findItemsList(itemsQueryVo);
 
 		// 返回ModelAndView
 		ModelAndView modelAndView = new ModelAndView();

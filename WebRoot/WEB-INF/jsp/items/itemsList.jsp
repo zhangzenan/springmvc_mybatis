@@ -9,11 +9,16 @@
 <title>查询商品列表</title>
 </head>
 <body>
-	<form action="${pageContext.request.contextPath}/item/queryItem.action" method="post">
+	<form action="${pageContext.request.contextPath}/items/queryItems.action" method="post">
 	查询条件：
 	<table width="100%" bolder=1>
 		<tr>
-			<td><input type="submit" value="查询"/></td>			
+			<td>
+				商品名称：<input name="itemsCustom.name"/>
+			</td>
+			<td>
+				<input type="submit" value="查询"/>
+			</td>			
 		</tr>		
 	</table>
 	<table width="100%" bolder=1>
