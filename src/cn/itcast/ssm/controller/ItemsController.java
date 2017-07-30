@@ -135,5 +135,56 @@ public class ItemsController {
 		response.getWriter().write("{name:zhangsan}");
 
 	}
+	
+	
+	/** 
+	* @Title: deleteItems 
+	* @Description: 批量删除商品信息
+	* @param @param items_id
+	* @param @return
+	* @param @throws Exception    设定文件 
+	* @return String    返回类型 
+	* @throws 
+	*/
+	@RequestMapping("/deleteItems")
+	public String deleteItems(Integer[] items_id)throws Exception{
+		
+		return "success";		
+	}
+	
+	
+	/** 
+	* @Title: editItemsQuery 
+	* @Description: 批量修改商品页面，将商品信息查询出来，在页面中可以编辑商品信息
+	* @param @param request
+	* @param @param itemsQueryVo
+	* @param @return
+	* @param @throws Exception    设定文件 
+	* @return ModelAndView    返回类型 
+	* @throws 
+	*/
+	@RequestMapping("/editItemsQuery")
+	public ModelAndView editItemsQuery(HttpServletRequest request,ItemsQueryVo itemsQueryVo) throws Exception {
+
+		List<ItemsCustom> itemsList = itemsService.findItemsList(itemsQueryVo);
+
+		// 返回ModelAndView
+		ModelAndView modelAndView = new ModelAndView();
+		// 相当于request的setAttribut,在jsp页面中通过itemsList取数据
+		modelAndView.addObject("itemsList", itemsList);
+		// 指定视图	
+		modelAndView.setViewName("items/editItemsQuery");
+
+		return modelAndView;
+	}
+	
+	
+	//批量修改商品提交
+	//通过ItemsQueryVo接收批量提交的商品信息，将商品信息存储到itemsQueryVo中的itemsList属性中
+	@RequestMapping("/editItemsAllSubmit")
+	public String editItemsAllSubmit(ItemsQueryVo itemsQueryVo) throws Exception{
+		
+		return "success";		
+	}
 
 }
