@@ -24,7 +24,7 @@
 <body>
 	<form name="itemsForm" action="${pageContext.request.contextPath}/items/queryItems.action" method="post">
 	查询条件：
-	<table width="100%" bolder=1>
+	<table width="100%" border=1>
 		<tr>
 			<td>
 				商品名称：<input name="itemsCustom.name"/>
@@ -35,7 +35,7 @@
 			</td>			
 		</tr>		
 	</table>
-	<table width="100%" bolder=1>
+	<table width="100%" border=1>
 		<tr>
 			<td>选择</td>
 			<td>商品名称</td>
