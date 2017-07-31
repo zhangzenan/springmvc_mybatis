@@ -3,15 +3,23 @@ package cn.itcast.ssm.po;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Items {
     private Integer id;
 
+    //校验名称在1到30字符中间
+    //message是提示校验出错显示的信息
+    @Size(min=1,max=30,message="{items.name.length.error}")
     private String name;
 
     private String detail;
 
     private BigDecimal price;
     
+    //非空校验
+    @NotNull(message="{items.createtime.length.isNULL}")
     private Date createtime;
 
     public Integer getId() {

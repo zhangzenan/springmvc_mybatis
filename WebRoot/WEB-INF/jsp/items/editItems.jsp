@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -10,6 +10,12 @@
 <title>修改商品信息</title>
 </head>
 <body>
+	<!-- 显示错误信息 -->
+	<c:if test="${ allErrors!=null}">
+		<c:forEach items="${ allErrors}" var="error">
+			${error.defaultMessage}
+		</c:forEach>
+	</c:if>
 	<form
 		action="${pageContext.request.contextPath }/items/editItemsSubmit.action"
 		method="post">
@@ -27,8 +33,8 @@
 			</tr>
 			<tr>
 				<td>生产日期</td>
-				<td>
-					<input type="text" name="createtime" value="<fmt:formatDate value="${itemsCustom.createtime }" pattern="yyyy-MM-dd HH:mm:ss"/>" />					
+				<td><input type="text" name="createtime"
+					value="<fmt:formatDate value="${itemsCustom.createtime }" pattern="yyyy-MM-dd HH:mm:ss"/>" />
 				</td>
 			</tr>
 
