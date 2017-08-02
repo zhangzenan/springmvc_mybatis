@@ -1,6 +1,8 @@
 package cn.itcast.ssm.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,11 +13,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.itcast.ssm.controller.validation.ValidGroup1;
 import cn.itcast.ssm.po.ItemsCustom;
 import cn.itcast.ssm.po.ItemsQueryVo;
 import cn.itcast.ssm.service.ItemsService;
@@ -35,6 +39,16 @@ public class ItemsController {
 
 	@Autowired
 	private ItemsService itemsService;
+	
+	//商品分类
+	//itemtypes表示最终将方法返回值放在request中的key
+	@ModelAttribute("itemtypes")
+	public Map<String,String> getItemTypes(){
+		Map<String,String> itemTypes=new HashMap<String,String>();
+		itemTypes.put("101","数码");
+		itemTypes.put("102","母婴");
+		return itemTypes;
+	}
 
 	// 商品查询列表
 	// @RequestMapping实现对queryItems方法和url进行映射，一个方法对应一个url
@@ -102,7 +116,7 @@ public class ItemsController {
 	
 		//通过形参中的model将model数据传到页面
 		//相当于modelAndView.addObject方法
-		model.addAttribute("itemsCustom",itemsCustom);
+		model.addAttribute("items",itemsCustom);
 
 		return "items/editItems";
 	}
@@ -117,9 +131,11 @@ public class ItemsController {
 	 */
 	//在需要校验的pojo前边添加@Validated，在需要校验的pojo后边添加BindingResult bindingResult接收校验出错的信息
 	//注意：@Validated和BindingResult bindingResult是配对出现，并且形参顺序是固定的（一前一后）
+	//value={ValidGroup1.class}指定使用ValidGroup1分组的校验
+	//@ModelAttribute可以指定pojo回显到页面在request中的key
 	@RequestMapping("/editItemsSubmit")
 	public String editItemsSubmit(Model model,HttpServletRequest request,Integer id,
-		@Validated	ItemsCustom itemsCustom,BindingResult bindingResult) throws Exception {
+		@ModelAttribute("items") @Validated(value={ValidGroup1.class})	ItemsCustom itemsCustom,BindingResult bindingResult) throws Exception {
 
 		//获取校验信息
 		if(bindingResult.hasErrors()){
@@ -130,6 +146,13 @@ public class ItemsController {
 			}
 			//将错误信息传到页面
 			model.addAttribute("allErrors",allErrors);
+			
+			//可以直接使用model将提交pojo回显到页面
+			model.addAttribute("items",itemsCustom);
+			
+			//简单类型数据回显
+			//model.addAttribute("id",id);
+			
 			//出错重新到商品修改页面
 			return "items/editItems";
 		}
