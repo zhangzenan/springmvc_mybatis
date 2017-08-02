@@ -71,5 +71,8 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 		<property name="defaultEncoding" value="UTF-8"/>
 	</bean>
 	
+	<!-- 全局异常处理器只要实现HandlerExceptionResolver接口就是全局异常处理器 -->
+	<bean class="cn.itcast.ssm.exception.CustomExceptionResolver">
+	</bean>
 
 </beans>
