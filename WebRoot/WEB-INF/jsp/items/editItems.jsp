@@ -22,7 +22,7 @@
 		method="post">
 		<input type="hidden" name="id" value="${items.id} ">
 		修改商品信息：
-		<table with="100%" border=1>
+		<table width="100%" border=1>
 			<tr>
 				<td>商品名称</td>
 				<td><input type="text" name="name" value="${items.name} " /></td>
