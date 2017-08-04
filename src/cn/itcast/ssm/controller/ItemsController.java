@@ -1,5 +1,6 @@
 package cn.itcast.ssm.controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -168,17 +169,22 @@ public class ItemsController {
 		}
 		
 		//上传图片
-		if(items_pic!=null){
+		//原始名称
+		String originalFilename=items_pic.getOriginalFilename();
+		if(items_pic!=null && originalFilename!=null && originalFilename.length()>0){
 			//存储图片物理路径
 			String pic_path="F:\\个人资料\\workspace-java\\upload\\temp\\";
-			//原始名称
-			String originalFilename=items_pic.getOriginalFilename();
+			
 			
 			//新的图片名称
 			String newFileName=UUID.randomUUID()+originalFilename.substring(originalFilename.lastIndexOf("."));
-			//
+			//新图片
+			File newFile=new File(pic_path+newFileName);
 			
+			//将内存中的数据写入到磁盘
+			items_pic.transferTo(newFile);	
 			
+			itemsCustom.setPic(newFileName);
 		}
 		
 		//调用service更新商品信息，页面需要将商品你信息传到此方法

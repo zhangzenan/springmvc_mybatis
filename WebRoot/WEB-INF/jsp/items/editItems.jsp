@@ -36,7 +36,15 @@
 					value="<fmt:formatDate value="${items.createtime }" pattern="yyyy-MM-dd HH:mm:ss"/>" />
 				</td>
 			</tr>
-
+			<tr>
+				<td>商品图片</td>
+				<td>
+					<c:if test="${items.pic!=null }">
+						<img src="/pic/${items.pic }" width=100 height=100/>
+					</c:if>
+					<input type="file" name="items_pic"/>
+				</td>
+			</tr>
 			<tr>
 				<td>商品简介</td>
 				<td><input type="text" name="detail"

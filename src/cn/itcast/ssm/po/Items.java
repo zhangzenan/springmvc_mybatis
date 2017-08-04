@@ -24,8 +24,18 @@ public class Items {
     //·Ç¿ÕÐ£Ñé
     @NotNull(message="{items.createtime.length.isNULL}")
     private Date createtime;
+    
+    private String pic;
 
-    public Integer getId() {
+    public String getPic() {
+		return pic;
+	}
+
+	public void setPic(String pic) {
+		this.pic = pic;
+	}
+
+	public Integer getId() {
         return id;
     }
 
