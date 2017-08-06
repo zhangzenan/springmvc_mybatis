@@ -92,6 +92,11 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 	<!--编写拦截器-->
     <mvc:interceptors>
         <!-- 多个拦截器，顺序执行 -->
+         <!-- 登陆认证拦截器 -->
+         <mvc:interceptor>        	
+            <mvc:mapping path="/**"/>
+            <bean class="cn.itcast.ssm.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
         <mvc:interceptor>
         	<!-- /**表示所有url包括子url路径 -->
             <mvc:mapping path="/**"/>
