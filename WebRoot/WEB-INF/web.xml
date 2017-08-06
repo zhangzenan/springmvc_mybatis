@@ -42,7 +42,7 @@
 	<servlet-mapping>
 		<servlet-name>springmvc_rest</servlet-name>
 		<url-pattern>/</url-pattern>
-	</servlet-mapping>	
+	</servlet-mapping>
 
 	<!-- post乱码过滤器 -->
 	<filter>

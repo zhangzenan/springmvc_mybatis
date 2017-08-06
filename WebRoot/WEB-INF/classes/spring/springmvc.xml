@@ -18,16 +18,16 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 	<!-- 可以扫描controller、service... 这里扫描controller,指定controller的包 -->
 	<context:component-scan base-package="cn.itcast.ssm.controller"></context:component-scan>
-	
-	<!-- 静态资源解析
-	包括：js、css、img... -->
+
+	<!-- 静态资源解析 包括：js、css、img... -->
 	<mvc:resources location="/js/" mapping="/js/**"></mvc:resources>
 	<mvc:resources location="/img/" mapping="/img/**"></mvc:resources>
 
 	<!-- 使用mvc:annotation-driven代替上边注解映射器和注解适配器配置 mvc:annotation-driven默认加载很多的参数绑定方法， 
 		比如json转换解析器就默认加载了，如果使用mvc:annotation-driven不用配置上边的RequestMappingHandlerMapping和RequestMappingHandlerAdapter 
 		实际开发时使用 mvc:annotation-driven -->
-	<mvc:annotation-driven conversion-service="conversionService" validator="validator">
+	<mvc:annotation-driven conversion-service="conversionService"
+		validator="validator">
 	</mvc:annotation-driven>
 
 	<!-- 视图解析器 解析jsp视图，默认使用jstl标签，classpath下得有jstl的包 -->
@@ -55,13 +55,14 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 	<bean id="validator"
 		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
 		<!-- hibernate校验器 -->
-		<property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>		
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
 		<!-- 指定校验使用的资源文件，如果不指定则默认使用classpath下的ValidationMessage.properties -->
 		<property name="validationMessageSource" ref="messageSource" />
 	</bean>
-	<!-- 校验错误信息配置文件-->
-	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-	
+	<!-- 校验错误信息配置文件 -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+
 		<!-- 资源文件名 -->
 		<property name="basenames">
 			<list>
@@ -69,22 +70,38 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 			</list>
 		</property>
 		<!-- 资源文件编码格式 -->
-		<property name="fileEncodings" value="utf-8"/>
+		<property name="fileEncodings" value="utf-8" />
 		<!-- 对资源文件内容缓存时间，单位秒 -->
-		<property name="cacheSeconds" value="120"/>
+		<property name="cacheSeconds" value="120" />
 		<!-- 解决错误消息乱码 -->
-		<property name="defaultEncoding" value="UTF-8"/>
+		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
-	
+
 	<!-- 全局异常处理器只要实现HandlerExceptionResolver接口就是全局异常处理器 -->
 	<bean class="cn.itcast.ssm.exception.CustomExceptionResolver">
 	</bean>
-	
+
 	<!-- 文件上传 -->
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize">
 			<value>5242880</value>
 		</property>
 	</bean>
+		
+	<!--编写拦截器-->
+    <mvc:interceptors>
+        <!-- 多个拦截器，顺序执行 -->
+        <mvc:interceptor>
+        	<!-- /**表示所有url包括子url路径 -->
+            <mvc:mapping path="/**"/>
+            <bean class="cn.itcast.ssm.interceptor.HandlerInterceptor1"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <!--对特定的模块拦截第一级别拦截-->
+            <mvc:mapping path="/**"/>
+            <bean class="cn.itcast.ssm.interceptor.HandlerInterceptor2"/>
+        </mvc:interceptor>       
+    </mvc:interceptors>
 
 </beans>
