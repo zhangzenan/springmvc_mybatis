@@ -32,6 +32,7 @@ public class jsonTest {
 	public @ResponseBody ItemsCustom requestJson(@RequestBody ItemsCustom itemsCustom){
 		
 		//@ResponseBody将itemsCustom转成json输出
+		
 		return itemsCustom;		
 	}
 	
